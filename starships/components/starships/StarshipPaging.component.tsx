@@ -1,73 +1,66 @@
-import { StarshipsService } from "@/services/starships/Startships.service";
-import { Constants } from "@/utility/Constants";
+import { IStarship } from "@/interfaces/starships/IStarship.interface";
+import { Colors } from "@/utility/Colors";
 import { Button, Grid, Typography } from "@mui/material";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
-export default function StarshipPaging({ setResults, setPaging, paging }: any) {
-  const fetchDataByUrl = async (url: string) => {
-    try {
-      const result = await StarshipsService.GetByUrl(url);
-
-      //staticly added an starship image becasue there was none in api
-      const defaultImageUrl = Constants.DefaultImage;
-
-      const resultsWithDefaultImage = result?.data?.results.map((starship) => {
-        return {
-          ...starship,
-          imageUrl: defaultImageUrl,
-        };
-      });
-
-      setResults(resultsWithDefaultImage);
-      setPaging({
-        count: result.data.count,
-        next: result.data.next,
-        previous: result.data.previous,
-      });
-    } catch (error: any) {
-      console.log("Err:", error);
-    }
-  };
+export default function StarshipPaging({
+  count,
+  next,
+  previous,
+  results,
+}: IStarship.IStarshipList) {
+  const { t } = useTranslation("common");
+  const router = useRouter();
+  function handlePageChange(num: number) {
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        page: router.query.page
+          ? parseInt(router.query.page as string) + num
+          : 2,
+      },
+    });
+  }
 
   return (
     <Grid container item marginY={5} direction={"row"} justifyContent={"right"}>
       <Grid container item justifyContent={"center"} gap={4}>
-        {paging.previous && (
+        {previous && (
           <Button
-            color="info"
+            color="primary"
             size="large"
             sx={{ borderRadius: "25px", textTransform: "none" }}
-            variant="contained"
-            onClick={() => fetchDataByUrl(paging.previous ?? "")}
+            variant="outlined"
+            onClick={() => handlePageChange(-1)}
           >
-            {t("common:PREVIOUS")}
+            {t("PREVIOUS")}
           </Button>
         )}
 
-        {paging.next && (
+        {next && (
           <Button
-            color="info"
+            color="primary"
             size="large"
             sx={{ borderRadius: "25px", textTransform: "none" }}
             variant="contained"
-            onClick={() => fetchDataByUrl(paging.next ?? "")}
+            onClick={() => handlePageChange(1)}
           >
-            {t("common:NEXT")}
+            {t("NEXT")}
           </Button>
         )}
       </Grid>
       <Grid
         item
-        border={"3px solid black"}
+        border={`3px solid ${Colors.StarWarsYellow}`}
         borderRadius={"15px"}
-        padding={2}
+        padding={1.5}
         marginRight={5}
       >
-        <Typography>
-          {t("common:PAGE")}:
-          {paging.previous
-            ? paging.previous?.charAt(paging.previous.length - 1) * 1 + 1
-            : 1}
+        <Typography color={Colors.StarWarsYellow}>
+          {t("PAGE")}:
+          {router.query.page ? parseInt(router.query.page as string) : 1}
         </Typography>
       </Grid>
     </Grid>

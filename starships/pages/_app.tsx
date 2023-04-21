@@ -1,37 +1,49 @@
-import "@/styles/globals.css";
-import { Grid } from "@mui/material";
-import type { AppProps } from "next/app";
-import Image from "next/image";
+import { appWithTranslation } from "next-i18next";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
-import { Fragment } from "react";
-import { I18nextProvider } from "react-i18next";
-import i18n from "@/utility/i18n";
+import { useRouter } from "next/router";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "@/utility/CustomTheme";
+import type { AppProps } from "next/app";
 
-export default function App({ Component, pageProps }: AppProps) {
-  const handleLanguageChange = (lang: string) => {
-    localStorage.setItem("i18nLang", lang);
-    i18n.changeLanguage(lang);
-    window.location.reload();
-  };
+import { Button, Grid } from "@mui/material";
+import Image from "next/image";
+
+import "@/styles/globals.css";
+
+function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const { t } = useTranslation("common");
+  const changeTo = router.locale === "tr" ? "en" : "tr";
+
   return (
-    <Fragment>
-      <div>
-        <button onClick={() => handleLanguageChange("tr")}>TR</button>
-        <button onClick={() => handleLanguageChange("en")}>EN</button>
-      </div>
-      <Grid item container justifyContent={"center"}>
-        <Link href={"/"}>
-          <Image
-            src={"/starwars.png"}
-            alt={"starwars"}
-            width={180}
-            height={130}
-          />
-        </Link>
+    <>
+      <Link href="/" locale={changeTo}>
+        <Button
+          sx={{
+            position: "absolute",
+            right: "3%",
+            top: "5%",
+            borderWidth: "3px",
+            borderRadius: "25px",
+            textTransform: "none",
+          }}
+          size="large"
+          variant="outlined"
+        >
+          {t("change-locale", { changeTo })}
+        </Button>
+      </Link>
+      <Grid item container justifyContent="center">
+        <a href="/">
+          <Image src="/starwars.png" alt="starwars" width={180} height={130} />
+        </a>
       </Grid>
-      <I18nextProvider i18n={i18n}>
+      <ThemeProvider theme={theme}>
         <Component {...pageProps} />
-      </I18nextProvider>
-    </Fragment>
+      </ThemeProvider>
+    </>
   );
 }
+
+export default appWithTranslation(App);

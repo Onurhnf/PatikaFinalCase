@@ -105,3 +105,6 @@ a {
   padding: 0;
   margin: 0;
 }
+body {
+  background: linear-gradient(to left, #1d2035, #4e3940);
+}

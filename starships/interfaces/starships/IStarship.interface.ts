@@ -4,13 +4,13 @@ export namespace IStarship {
     next: string | null;
     previous: string | null;
     results: StarshipDetail[];
-    initialResults: StarshipDetail[];
   }
   export interface StarshipCardProps {
     title: string;
     model: string;
-    imageUrl: string;
+    imageUrl?: string;
     rating: string;
+    id?: string;
   }
 
   export interface StarshipDetail {
@@ -32,6 +32,7 @@ export namespace IStarship {
     created: string;
     edited: string;
     url: string;
-    imageUrl: string;
+    imageUrl?: string;
+    id?: string;
   }
 }

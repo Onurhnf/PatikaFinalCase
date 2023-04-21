@@ -28,6 +28,7 @@ function StarShipList({
             imageUrl={starship.imageUrl}
             model={starship.model}
             rating={starship.hyperdrive_rating}
+            id={starship.id}
           ></StarShipCard>
         );
       })}

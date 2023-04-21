@@ -1,29 +1,18 @@
 import Head from "next/head";
-import StarShipList from "@/components/starships/StarshipList.component";
-import { StarshipsService } from "@/services/starships/Startships.service";
-import { IStarship } from "@/interfaces/starships/IStarship.interface";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSidePropsContext } from "next";
+
 import StarshipSearch from "@/components/starships/StarshipSearch.component";
-import { useState } from "react";
-import { Constants } from "@/utility/Constants";
+import StarShipList from "@/components/starships/StarshipList.component";
 import StarshipPaging from "@/components/starships/StarshipPaging.component";
 
-export default function Home({
-  count,
-  next,
-  previous,
-  initialResults,
-}: IStarship.IStarshipList) {
-  const [results, setResults] = useState(initialResults);
-  const [paging, setPaging] = useState({
-    count,
-    next,
-    previous,
-  });
-  const handleSearch = (searchResults: any) => {
-    setResults(searchResults);
-  };
+import { Constants } from "@/utility/Constants";
+import { StarshipsService } from "@/services/starships/Startships.service";
+import { IStarship } from "@/interfaces/starships/IStarship.interface";
 
+interface HomeProps extends IStarship.IStarshipList {}
+
+export default function Home({ results, count, next, previous }: HomeProps) {
   return (
     <>
       <Head>
@@ -32,19 +21,18 @@ export default function Home({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <StarshipSearch onSearch={handleSearch} setPaging={setPaging} />
+      <StarshipSearch />
       <StarShipList
         count={count}
         next={next}
         previous={previous}
         results={results}
-        initialResults={[]}
       />
-
       <StarshipPaging
-        paging={paging}
-        setPaging={setPaging}
-        setResults={setResults}
+        next={next}
+        previous={previous}
+        results={results}
+        count={count}
       />
     </>
   );
@@ -52,25 +40,38 @@ export default function Home({
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
-    const { page = "1" } = context?.query;
+    const { page = "1", search = "" } = context.query;
 
-    const result = await StarshipsService.List(page as string);
-    //staticly added an starship image becasue there was none in api
+    const queryString = `?page=${page}${search ? `&search=${search}` : ""}`;
+
+    const result = await StarshipsService.List(queryString as string);
+
+    // staticly added a starship image because there was none in api
     const defaultImageUrl = Constants.DefaultImage;
 
-    const resultsWithDefaultImage = result?.data?.results.map((starship) => {
-      return {
+    const resultsWithDefaultImageAndId = result?.data?.results.map(
+      (starship) => ({
         ...starship,
+        id: starship.url.split("/").filter(Boolean).pop(),
         imageUrl: defaultImageUrl,
-      };
-    });
+      })
+    );
+
+    const props: HomeProps = {
+      count: result.data.count,
+      next: result.data.next,
+      previous: result.data.previous,
+      results: resultsWithDefaultImageAndId,
+    };
+
+    const i18nProps = await serverSideTranslations(context.locale ?? "tr", [
+      "common",
+    ]);
 
     return {
       props: {
-        count: result.data.count,
-        next: result.data.next,
-        previous: result.data.previous,
-        initialResults: resultsWithDefaultImage,
+        ...props,
+        ...i18nProps,
       },
     };
   } catch (error: any) {

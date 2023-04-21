@@ -6,18 +6,38 @@ export const StarshipsService = {
   /**
    * @returns Starship List
    */
-  List: async (page: string): Promise<{ data: IStarship.IStarshipList }> => {
-    const result = await Http.GET(Endpoints.Starships + page);
+  List: async (query: string): Promise<{ data: IStarship.IStarshipList }> => {
+    const result = await Http.GET(Endpoints.Starships + query);
     return result;
   },
-  Search: async (text: string): Promise<{ data: IStarship.IStarshipList }> => {
-    const result = await Http.GET(Endpoints.SearchStarships + text);
-    return result;
-  },
-  GetByUrl: async (url = ""): Promise<{ data: IStarship.IStarshipList }> => {
-    console.log(url);
+  /**
+   *
+   * @param text
+   * @returns Searched starship list
+   */
+  // Search: async (text: string): Promise<{ data: IStarship.IStarshipList }> => {
+  //   const result = await Http.GET(Endpoints.SearchStarships + text);
+  //   return result;
+  // },
+  /**
+   *
+   * @param url
+   * @returns what url return (starships in this case)
+   */
+  // GetByUrl: async (url = ""): Promise<{ data: IStarship.IStarshipList }> => {
+  //   const result = await Http.GET(url);
+  //   return result;
+  // },
+  /**
+   *
+   * @param id
+   * @returns starship detail
+   */
 
-    const result = await Http.GET(url);
+  GetDetail: async (
+    id: string
+  ): Promise<{ data: IStarship.StarshipDetail }> => {
+    const result = await Http.GET(Endpoints.Starships + id);
     return result;
   },
 };

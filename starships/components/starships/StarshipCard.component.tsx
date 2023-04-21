@@ -16,24 +16,25 @@ function StarShipCard({
   imageUrl,
   model,
   rating,
+  id,
 }: IStarship.StarshipCardProps) {
   return (
     <Grid container item maxWidth={"250px"} minWidth={"200px"}>
       <Card
         className={styles.card}
         sx={{
-          border: `6px solid ${Colors.MainSpaceDark}`,
+          border: `5px solid ${Colors.MainSpaceDark}`,
           borderRadius: "15%",
           background: Colors.MainSpaceDark,
           maxHeight: "330px",
           height: "100%",
         }}
       >
-        <Link href={"link"} passHref>
+        <Link href={id ?? ""} passHref>
           <CardActionArea>
             <div style={{ position: "relative", borderRadius: 16 }}>
               <Image
-                src={imageUrl}
+                src={imageUrl ?? ""}
                 alt={title}
                 width={768}
                 height={326}

@@ -1,34 +1,30 @@
 import { Button, Grid, TextField } from "@mui/material";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 import { useState } from "react";
-import { StarshipsService } from "@/services/starships/Startships.service";
-import { Constants } from "@/utility/Constants";
+import { Colors } from "@/utility/Colors";
+import { useRouter } from "next/router";
 
-function StarshipSearch({ onSearch, setPaging }: any) {
+function StarshipSearch() {
+  const { t } = useTranslation("common");
+  const router = useRouter();
   const [query, setQuery] = useState("");
 
   const handleSearchClick = async () => {
-    const results = await StarshipsService.Search(query);
-    setPaging({
-      count: results.data.count,
-      next: results.data.next,
-      previous: results.data.previous,
+    const searchQuery = query.trim(); // Remove leading/trailing whitespaces
+    router.push({
+      pathname: router.pathname,
+      query: {
+        search: searchQuery,
+      },
     });
-    const defaultImageUrl = Constants.DefaultImage;
-
-    const resultsWithDefaultImage = results?.data?.results.map((starship) => {
-      return {
-        ...starship,
-        imageUrl: defaultImageUrl,
-      };
-    });
-
-    onSearch(resultsWithDefaultImage);
   };
 
   return (
     <Grid container item md={12} justifyContent={"center"}>
-      <Grid borderBottom={"2px solid #35322B"} marginBottom={3}>
+      <Grid
+        borderBottom={`2px solid ${Colors.StarWarsYellow}`}
+        marginBottom={3}
+      >
         <Grid
           marginBottom={2}
           item
@@ -39,15 +35,22 @@ function StarshipSearch({ onSearch, setPaging }: any) {
         >
           <TextField
             size="small"
-            label={"Name / Model"}
+            focused
+            color="primary"
+            label={t("search-area")}
+            InputProps={{ style: { color: `${Colors.WHITE}` } }}
             onChange={(e) => setQuery(e.target.value)}
           />
           <Button
             onClick={handleSearchClick}
-            variant="contained"
-            sx={{ borderRadius: "25px", textTransform: "none" }}
+            variant="outlined"
+            color="primary"
+            sx={{
+              borderRadius: "25px",
+              textTransform: "none",
+            }}
           >
-            {t("common:FILTER")}
+            {t("FILTER")}
           </Button>
         </Grid>
       </Grid>
