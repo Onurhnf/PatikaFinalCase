@@ -10,9 +10,7 @@ import { Constants } from "@/utility/Constants";
 import { StarshipsService } from "@/services/starships/Startships.service";
 import { IStarship } from "@/interfaces/starships/IStarship.interface";
 
-interface HomeProps extends IStarship.IStarshipList {}
-
-export default function Home({ results, count, next, previous }: HomeProps) {
+export default function Home({ results, next, previous }: IStarship.HomeProps) {
   return (
     <>
       <Head>
@@ -22,18 +20,8 @@ export default function Home({ results, count, next, previous }: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <StarshipSearch />
-      <StarShipList
-        count={count}
-        next={next}
-        previous={previous}
-        results={results}
-      />
-      <StarshipPaging
-        next={next}
-        previous={previous}
-        results={results}
-        count={count}
-      />
+      <StarShipList results={results} />
+      <StarshipPaging next={next} previous={previous} />
     </>
   );
 }
@@ -57,8 +45,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       })
     );
 
-    const props: HomeProps = {
-      count: result.data.count,
+    const props: IStarship.HomeProps = {
       next: result.data.next,
       previous: result.data.previous,
       results: resultsWithDefaultImageAndId,

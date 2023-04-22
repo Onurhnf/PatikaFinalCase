@@ -3,12 +3,7 @@ import StarShipCard from "./StarshipCard.component";
 import { IStarship } from "@/interfaces/starships/IStarship.interface";
 import { useRouter } from "next/router";
 
-function StarShipList({
-  count,
-  next,
-  previous,
-  results,
-}: IStarship.IStarshipList) {
+function StarShipList({ results }: IStarship.IStarshipList) {
   const router = useRouter();
 
   return (

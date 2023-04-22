@@ -1,73 +1,97 @@
-import {
-  Grid,
-  Card,
-  CardActionArea,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Grid, Card, CardContent, Typography, Box } from "@mui/material";
 import Image from "next/image";
 import { IStarship } from "@/interfaces/starships/IStarship.interface";
 import { Colors } from "@/utility/Colors";
-import styles from "../../styles/StarshipCard.module.css";
+import { useTranslation } from "next-i18next";
 
-function StarshipDetailCard(props: IStarship.StarshipDetail) {
+function StarshipDetailCard(props: IStarship.IStarshipDetail) {
+  const { t } = useTranslation("common");
+
+  const details = [
+    { title: `${t("Model")}:`, attr: props.model },
+    { title: `${t("Hyperdrive-Rating")}:`, attr: props.hyperdrive_rating },
+    { title: `${t("Passengers")}:`, attr: props.passengers },
+    {
+      title: `${t("Max-Atmosphereing-Speed")}:`,
+      attr: props.max_atmosphering_speed,
+    },
+    { title: `${t("Manufacturer")}:`, attr: props.manufacturer },
+    { title: `${t("Crew")}:`, attr: props.crew },
+    { title: `${t("Cargo-Capacity")}:`, attr: props.cargo_capacity },
+  ];
+  console.log(props);
+
+  function renderDetails() {
+    return details.map((detail) => {
+      return (
+        <Typography
+          mb={2}
+          variant="body2"
+          color={Colors.MainText}
+          component="p"
+        >
+          <b>{detail.title} </b> {detail.attr === "n/a" ? "-" : detail.attr}
+        </Typography>
+      );
+    });
+  }
+
   return (
-    <Grid container item maxWidth={"400px"} minWidth={"200px"}>
+    <Grid
+      container
+      item
+      maxWidth={"600px"}
+      minWidth={"400px"}
+      sx={{ border: "7px solid white", height: "100%", borderRadius: "30px" }}
+    >
       <Card
-        className={styles.card}
         sx={{
-          border: `5px solid ${Colors.MainSpaceDark}`,
-          borderRadius: "15%",
-          background: Colors.MainSpaceDark,
-          maxHeight: "330px",
+          border: `7px solid ${Colors.MainSpaceDark}`,
+          borderRadius: "30px",
+          background: "#fff",
           height: "100%",
         }}
       >
-        <CardActionArea>
-          <div style={{ position: "relative", borderRadius: 16 }}>
-            <Image
-              src={props.imageUrl ?? ""}
-              alt={"title"}
-              width={768}
-              height={326}
-              priority={true}
-              style={{
-                objectFit: "cover",
-                objectPosition: "center",
-                borderRadius: "15%",
-                width: "100%",
-                height: "100%",
-              }}
-            />
-          </div>
-          <CardContent sx={{ padding: 3 }}>
-            <Typography
-              gutterBottom
-              variant="h5"
-              fontSize={"18px"}
-              align="center"
-              color={Colors.MainText}
-            >
-              <b>{"title"}</b>
-            </Typography>
-            <Typography
-              gutterBottom
-              variant="body2"
-              color={Colors.MainText}
-              component="p"
-            >
-              <b>Model: </b> {"model"}
-            </Typography>
-            <Typography
-              gutterBottom
-              variant="body2"
-              color={Colors.MainText}
-              component="p"
-            >
-              <b>Hyperdrive Rating:</b> {"rating"}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+        <Box textAlign={"center"} sx={{ padding: "2px", marginY: 2 }}>
+          <Typography
+            variant="h4"
+            display={"inline"}
+            color={Colors.MainText}
+            sx={{ borderBottom: `1px solid ${Colors.MainText}` }}
+          >
+            <b>{props.name}</b>
+          </Typography>
+        </Box>
+        <Grid
+          container
+          item
+          justifyContent="center"
+          sx={{
+            borderRadius: 16,
+            minWidth: "600px",
+          }}
+        >
+          <Image
+            src={props.imageUrl ?? ""}
+            alt={props.name}
+            width={768}
+            height={326}
+            priority={true}
+            style={{
+              objectFit: "cover",
+              objectPosition: "center",
+              borderRadius: "15%",
+              width: "100%",
+              height: "100%",
+              maxWidth: "400px",
+              boxShadow: "12px 12px 3px rgba(0, 0, 0, 0.7)",
+              paddingRight: "-5px",
+            }}
+          />
+        </Grid>
+        <CardContent sx={{ paddingX: 20, marginTop: 2 }}>
+          {renderDetails()}
+        </CardContent>
       </Card>
     </Grid>
   );

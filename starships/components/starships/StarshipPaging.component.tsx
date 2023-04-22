@@ -5,11 +5,9 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 
 export default function StarshipPaging({
-  count,
   next,
   previous,
-  results,
-}: IStarship.IStarshipList) {
+}: IStarship.IStarshipPagingProps) {
   const { t } = useTranslation("common");
   const router = useRouter();
   function handlePageChange(num: number) {

@@ -9,7 +9,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { IStarship } from "@/interfaces/starships/IStarship.interface";
 import { Colors } from "@/utility/Colors";
-import styles from "../../styles/StarshipCard.module.css";
+import styles from "@/styles/StarshipCard.module.css";
+import { useTranslation } from "next-i18next";
 
 function StarShipCard({
   title,
@@ -17,7 +18,9 @@ function StarShipCard({
   model,
   rating,
   id,
-}: IStarship.StarshipCardProps) {
+}: IStarship.IStarshipCardProps) {
+  const { t } = useTranslation("common");
+
   return (
     <Grid container item maxWidth={"250px"} minWidth={"200px"}>
       <Card
@@ -64,7 +67,7 @@ function StarShipCard({
                 color={Colors.MainText}
                 component="p"
               >
-                <b>Model: </b> {model}
+                <b>{t("Model")}: </b> {model}
               </Typography>
               <Typography
                 gutterBottom
@@ -72,7 +75,7 @@ function StarShipCard({
                 color={Colors.MainText}
                 component="p"
               >
-                <b>Hyperdrive Rating:</b> {rating}
+                <b>{t("Hyperdrive-Rating")}:</b> {rating}
               </Typography>
             </CardContent>
           </CardActionArea>

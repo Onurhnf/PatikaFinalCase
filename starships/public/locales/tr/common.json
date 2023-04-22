@@ -4,5 +4,13 @@
   "PAGE": "Sayfa",
   "FILTER": "Filtrele",
   "change-locale": "English",
-  "search-area": "İsim / Model"
+  "search-area": "İsim / Model",
+  "Model": "Model",
+  "Hyperdrive-Rating": "Hiper Sürüş Puanı",
+  "Passengers": "Yolcu Kapasitesi",
+  "Max-Atmosphereing-Speed": "Maksimum Atmosferik Hız",
+  "Manufacturer": "Üretici",
+  "Crew": "Mürettebat",
+  "Cargo-Capacity": "Yük Kapasitesi",
+  "Go-Back": "Geri Dön"
 }

@@ -6,7 +6,9 @@ export const StarshipsService = {
   /**
    * @returns Starship List
    */
-  List: async (query: string): Promise<{ data: IStarship.IStarshipList }> => {
+  List: async (
+    query: string
+  ): Promise<{ data: IStarship.IStarshipResponse }> => {
     const result = await Http.GET(Endpoints.Starships + query);
     return result;
   },
@@ -36,7 +38,7 @@ export const StarshipsService = {
 
   GetDetail: async (
     id: string
-  ): Promise<{ data: IStarship.StarshipDetail }> => {
+  ): Promise<{ data: IStarship.IStarshipDetail }> => {
     const result = await Http.GET(Endpoints.Starships + id);
     return result;
   },

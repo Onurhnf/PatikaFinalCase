@@ -4,5 +4,13 @@
   "PAGE": "Page",
   "FILTER": "Filter",
   "change-locale": "Türkçe",
-  "search-area": "Name / Model"
+  "search-area": "Name / Model",
+  "Model": "Model",
+  "Hyperdrive-Rating": "Hyperdrive Rating",
+  "Passengers": "Passengers",
+  "Max-Atmosphereing-Speed": "Maximum Atmosphereing Speed",
+  "Manufacturer": "Manufacturer",
+  "Crew": "Crew",
+  "Cargo-Capacity": "Cargo Capacity",
+  "Go-Back": "Go Back"
 }

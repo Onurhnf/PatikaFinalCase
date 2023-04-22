@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/utility/CustomTheme";
 import type { AppProps } from "next/app";
 
+import TranslateIcon from "@mui/icons-material/Translate";
 import { Button, Grid } from "@mui/material";
 import Image from "next/image";
 
@@ -20,6 +21,7 @@ function App({ Component, pageProps }: AppProps) {
     <>
       <Link href="/" locale={changeTo}>
         <Button
+          endIcon={<TranslateIcon color="info" />}
           sx={{
             position: "absolute",
             right: "3%",
