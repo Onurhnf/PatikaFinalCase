@@ -3,9 +3,11 @@ import Image from "next/image";
 import { IStarship } from "@/interfaces/starships/IStarship.interface";
 import { Colors } from "@/utility/Colors";
 import { useTranslation } from "next-i18next";
+import Helpers from "@/utility/Helpers";
 
 function StarshipDetailCard(props: IStarship.IStarshipDetail) {
   const { t } = useTranslation("common");
+  const isMdDown = Helpers.useMediaQuery("down", "md");
 
   const details = [
     { title: `${t("Model")}:`, attr: props.model },
@@ -19,13 +21,12 @@ function StarshipDetailCard(props: IStarship.IStarshipDetail) {
     { title: `${t("Crew")}:`, attr: props.crew },
     { title: `${t("Cargo-Capacity")}:`, attr: props.cargo_capacity },
   ];
-  console.log(props);
 
   function renderDetails() {
     return details.map((detail) => {
       return (
         <Typography
-          mb={2}
+          mb={isMdDown ? 1 : 2}
           variant="body2"
           color={Colors.MainText}
           component="p"
@@ -38,10 +39,11 @@ function StarshipDetailCard(props: IStarship.IStarshipDetail) {
 
   return (
     <Grid
-      container
+      container={isMdDown ? false : true}
       item
-      maxWidth={"600px"}
-      minWidth={"400px"}
+      margin={2}
+      maxWidth={isMdDown ? "250" : "600px"}
+      minWidth={isMdDown ? "300" : "400px"}
       sx={{ border: "7px solid white", height: "100%", borderRadius: "30px" }}
     >
       <Card
@@ -50,6 +52,7 @@ function StarshipDetailCard(props: IStarship.IStarshipDetail) {
           borderRadius: "30px",
           background: "#fff",
           height: "100%",
+          minWidth: "300px",
         }}
       >
         <Box textAlign={"center"} sx={{ padding: "2px", marginY: 2 }}>
@@ -63,12 +66,13 @@ function StarshipDetailCard(props: IStarship.IStarshipDetail) {
           </Typography>
         </Box>
         <Grid
-          container
+          container={isMdDown ? false : true}
           item
           justifyContent="center"
+          margin={2}
           sx={{
             borderRadius: 16,
-            minWidth: "600px",
+            minWidth: isMdDown ? "350" : "600px",
           }}
         >
           <Image
@@ -89,7 +93,7 @@ function StarshipDetailCard(props: IStarship.IStarshipDetail) {
             }}
           />
         </Grid>
-        <CardContent sx={{ paddingX: 20, marginTop: 2 }}>
+        <CardContent sx={{ paddingX: isMdDown ? 2 : 20, marginTop: 2 }}>
           {renderDetails()}
         </CardContent>
       </Card>

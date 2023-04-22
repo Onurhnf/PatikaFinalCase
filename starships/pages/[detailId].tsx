@@ -8,10 +8,13 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useTranslation } from "next-i18next";
+import Helpers from "@/utility/Helpers";
 
 function ShipDetailPage(props: IStarship.IStarshipDetail) {
   const router = useRouter();
+  const isMdDown = Helpers.useMediaQuery("down", "md");
   const { t } = useTranslation("common");
+
   return (
     <Grid container justifyContent="center" mt={3}>
       <Button
@@ -20,7 +23,7 @@ function ShipDetailPage(props: IStarship.IStarshipDetail) {
         sx={{ position: "absolute", left: "3%", top: "5%" }}
         onClick={() => router.back()}
       >
-        {t("Go-Back")}
+        {isMdDown ? "" : t("Go-Back")}
       </Button>
       <StarshipDetailCard {...props} />
     </Grid>

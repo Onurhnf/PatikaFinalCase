@@ -2,17 +2,19 @@ import { appWithTranslation } from "next-i18next";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ThemeProvider } from "@mui/material/styles";
+import Helpers from "@/utility/Helpers";
 import theme from "@/utility/CustomTheme";
 import type { AppProps } from "next/app";
 
 import TranslateIcon from "@mui/icons-material/Translate";
 import { Button, Grid } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
 import Image from "next/image";
 
 import "@/styles/globals.css";
 
 function App({ Component, pageProps }: AppProps) {
+  const isMdDown = Helpers.useMediaQuery("down", "md");
   const router = useRouter();
   const { t } = useTranslation("common");
   const changeTo = router.locale === "tr" ? "en" : "tr";
@@ -30,10 +32,10 @@ function App({ Component, pageProps }: AppProps) {
             borderRadius: "25px",
             textTransform: "none",
           }}
-          size="large"
+          size={isMdDown ? "small" : "large"}
           variant="outlined"
         >
-          {t("change-locale", { changeTo })}
+          {t(isMdDown ? "change-locale-mobile" : `change-locale`, { changeTo })}
         </Button>
       </Link>
       <Grid item container justifyContent="center">
