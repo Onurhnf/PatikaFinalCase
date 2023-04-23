@@ -1,8 +1,9 @@
 import { Grid, Card, CardContent, Typography, Box } from "@mui/material";
 import Image from "next/image";
 import { IStarship } from "@/interfaces/starships/IStarship.interface";
-import { Colors } from "@/utility/Colors";
+
 import { useTranslation } from "next-i18next";
+import { Colors } from "@/utility/Colors";
 import Helpers from "@/utility/Helpers";
 
 function StarshipDetailCard(props: IStarship.IStarshipDetail) {
@@ -23,9 +24,10 @@ function StarshipDetailCard(props: IStarship.IStarshipDetail) {
   ];
 
   function renderDetails() {
-    return details.map((detail) => {
+    return details.map((detail, i) => {
       return (
         <Typography
+          key={i}
           mb={isMdDown ? 1 : 2}
           variant="body2"
           color={Colors.MainText}
@@ -59,6 +61,7 @@ function StarshipDetailCard(props: IStarship.IStarshipDetail) {
           <Typography
             variant="h4"
             display={"inline"}
+            data-cy={"starship-name"}
             color={Colors.MainText}
             sx={{ borderBottom: `1px solid ${Colors.MainText}` }}
           >

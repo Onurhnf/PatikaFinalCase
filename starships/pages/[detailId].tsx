@@ -5,10 +5,11 @@ import { Constants } from "@/utility/Constants";
 import { Button, Grid } from "@mui/material";
 import { GetServerSidePropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useTranslation } from "next-i18next";
 import Helpers from "@/utility/Helpers";
+import { useRouter } from "next/router";
 
 function ShipDetailPage(props: IStarship.IStarshipDetail) {
   const router = useRouter();
@@ -20,6 +21,7 @@ function ShipDetailPage(props: IStarship.IStarshipDetail) {
       <Button
         startIcon={<ArrowBackIcon />}
         variant="contained"
+        data-cy="back-button"
         sx={{ position: "absolute", left: "3%", top: "5%" }}
         onClick={() => router.back()}
       >

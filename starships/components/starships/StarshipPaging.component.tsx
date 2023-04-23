@@ -41,6 +41,7 @@ export default function StarshipPaging({
           <Button
             color="primary"
             size="large"
+            data-cy="go-next-page"
             sx={{
               borderRadius: "25px",
               textTransform: "none",
@@ -60,7 +61,7 @@ export default function StarshipPaging({
         padding={1.2}
         marginRight={5}
       >
-        <Typography color={Colors.StarWarsYellow}>
+        <Typography cy-data="page-counter" color={Colors.StarWarsYellow}>
           {t("PAGE")}:
           {router.query.page ? parseInt(router.query.page as string) : 1}
         </Typography>

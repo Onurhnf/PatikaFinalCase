@@ -42,6 +42,7 @@ function StarshipSearch() {
           <TextField
             size="small"
             focused
+            data-cy="search-field"
             color="primary"
             label={t("search-area")}
             InputProps={{ style: { color: `${Colors.WHITE}` } }}
@@ -51,6 +52,7 @@ function StarshipSearch() {
           <Button
             onClick={handleSearchClick}
             variant="contained"
+            data-cy="search-button"
             color="primary"
             sx={{
               borderRadius: "25px",
