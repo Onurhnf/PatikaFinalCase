@@ -41,7 +41,11 @@ export default function StarshipPaging({
           <Button
             color="primary"
             size="large"
-            sx={{ borderRadius: "25px", textTransform: "none" }}
+            sx={{
+              borderRadius: "25px",
+              textTransform: "none",
+              boxShadow: `8px 8px 5px ${Colors.Shadow}`,
+            }}
             variant="contained"
             onClick={() => handlePageChange(1)}
           >
@@ -53,7 +57,7 @@ export default function StarshipPaging({
         item
         border={`3px solid ${Colors.StarWarsYellow}`}
         borderRadius={"15px"}
-        padding={1.5}
+        padding={1.2}
         marginRight={5}
       >
         <Typography color={Colors.StarWarsYellow}>

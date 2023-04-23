@@ -19,6 +19,12 @@ function StarshipSearch() {
     });
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      handleSearchClick();
+    }
+  };
+
   return (
     <Grid container item md={12} justifyContent={"center"}>
       <Grid
@@ -40,14 +46,16 @@ function StarshipSearch() {
             label={t("search-area")}
             InputProps={{ style: { color: `${Colors.WHITE}` } }}
             onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <Button
             onClick={handleSearchClick}
-            variant="outlined"
+            variant="contained"
             color="primary"
             sx={{
               borderRadius: "25px",
               textTransform: "none",
+              boxShadow: `8px 8px 5px ${Colors.Shadow}`,
             }}
           >
             {t("FILTER")}

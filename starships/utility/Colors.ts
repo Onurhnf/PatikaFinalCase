@@ -3,4 +3,5 @@ export enum Colors {
   MainText = "#B6B6E0",
   StarWarsYellow = "#E4B853",
   WHITE = "#FFF",
+  Shadow = "#000000b3", //rgba(0, 0, 0, 0.7)
 }

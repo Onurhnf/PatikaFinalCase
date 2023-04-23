@@ -88,7 +88,7 @@ function StarshipDetailCard(props: IStarship.IStarshipDetail) {
               width: "100%",
               height: "100%",
               maxWidth: "400px",
-              boxShadow: "12px 12px 3px rgba(0, 0, 0, 0.7)",
+              boxShadow: `12px 12px 3px ${Colors.Shadow}`,
               paddingRight: "-5px",
             }}
           />
