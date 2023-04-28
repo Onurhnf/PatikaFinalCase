@@ -10,6 +10,7 @@ export default function StarshipPaging({
 }: IStarship.IStarshipPagingProps) {
   const { t } = useTranslation("common");
   const router = useRouter();
+
   function handlePageChange(num: number) {
     router.push({
       pathname: router.pathname,

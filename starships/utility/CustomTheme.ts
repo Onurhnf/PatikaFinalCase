@@ -1,5 +1,6 @@
 import { createTheme, Theme } from "@mui/material/styles";
 import { PaletteColor, PaletteColorOptions } from "@mui/material/styles";
+import { Colors } from "./Colors";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -10,10 +11,12 @@ declare module "@mui/material/styles" {
   }
 }
 
+// CustomTheme for mui primary button
+
 const theme: Theme = createTheme({
   palette: {
     primary: {
-      main: "#E4B853",
+      main: Colors.StarWarsYellow,
     },
   },
   components: {
@@ -21,10 +24,10 @@ const theme: Theme = createTheme({
       styleOverrides: {
         root: {
           "&.MuiButton-containedPrimary:hover": {
-            backgroundColor: "#C6933B",
+            backgroundColor: Colors.StarWarsYellowDarkest,
           },
           "&.MuiButton-outlinedPrimary:hover": {
-            borderColor: "#D7A447",
+            borderColor: Colors.StarWarsYellowDarker,
             borderWidth: "2px",
           },
           "&.MuiButton-outlinedPrimary": {

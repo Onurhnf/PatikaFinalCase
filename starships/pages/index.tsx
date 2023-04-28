@@ -30,8 +30,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const { page = "1", search = "" } = context.query;
 
+    //change query string according to the queries
     const queryString = `?page=${page}${search ? `&search=${search}` : ""}`;
-
     const result = await StarshipsService.List(queryString as string);
 
     // staticly added a starship image because there was none in api
@@ -51,6 +51,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       results: resultsWithDefaultImageAndId,
     };
 
+    // getting i18n data before client side
     const i18nProps = await serverSideTranslations(context.locale ?? "tr", [
       "common",
     ]);

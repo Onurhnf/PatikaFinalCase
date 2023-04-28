@@ -19,29 +19,52 @@ function App({ Component, pageProps }: AppProps) {
   const { t } = useTranslation("common");
   const changeTo = router.locale === "tr" ? "en" : "tr";
 
+  const handleLocaleChange = () => {
+    const queryParams = router.query;
+    // Include any existing query parameters in the URL
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...queryParams },
+      },
+      undefined,
+
+      { locale: changeTo }
+    );
+  };
+
+  const handleLogoClick = () => {
+    router.push("/", undefined, { locale: router.locale });
+  };
+
   return (
     <>
-      <Link href="/" locale={changeTo}>
-        <Button
-          endIcon={<TranslateIcon color="info" />}
-          sx={{
-            position: "absolute",
-            right: "3%",
-            top: "5%",
-            borderWidth: "3px",
-            borderRadius: "25px",
-            textTransform: "none",
-          }}
-          size={isMdDown ? "small" : "large"}
-          variant="outlined"
-        >
-          {t(isMdDown ? "change-locale-mobile" : `change-locale`, { changeTo })}
-        </Button>
-      </Link>
+      <Button
+        endIcon={<TranslateIcon color="info" />}
+        onClick={handleLocaleChange}
+        sx={{
+          position: "absolute",
+          right: "3%",
+          top: "5%",
+          borderWidth: "3px",
+          borderRadius: "25px",
+          textTransform: "none",
+        }}
+        size={isMdDown ? "small" : "large"}
+        variant="outlined"
+      >
+        {t(isMdDown ? "change-locale-mobile" : `change-locale`, { changeTo })}
+      </Button>
       <Grid item container justifyContent="center">
-        <a href="/">
-          <Image src="/starwars.png" alt="starwars" width={180} height={130} />
-        </a>
+        <Image
+          src="/starwars.png"
+          alt="starwars"
+          width={180}
+          height={130}
+          loading="lazy"
+          onClick={handleLogoClick}
+          style={{ cursor: "pointer" }}
+        />
       </Grid>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />

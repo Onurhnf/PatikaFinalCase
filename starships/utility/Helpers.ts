@@ -6,7 +6,7 @@ const Helpers = {
    *
    * @param direction "down" | "up"
    * @param category "xs" | "sm" | "md" | "lg" | "xl"
-   * @return media query
+   * @return media query to detect window size
    */
   useMediaQuery: (direction: "down" | "up", category: Breakpoint) => {
     if (!direction || !category) {

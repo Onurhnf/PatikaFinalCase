@@ -1,11 +1,8 @@
 import { Grid } from "@mui/material";
 import StarShipCard from "./StarshipCard.component";
 import { IStarship } from "@/interfaces/starships/IStarship.interface";
-import { useRouter } from "next/router";
 
 function StarShipList({ results }: IStarship.IStarshipList) {
-  const router = useRouter();
-
   return (
     <Grid
       md={12}

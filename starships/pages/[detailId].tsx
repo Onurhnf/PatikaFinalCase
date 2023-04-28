@@ -38,13 +38,13 @@ export const getServerSideProps = async (
 ) => {
   try {
     const detailId = context.params?.detailId;
-
     const result = await StarshipsService.GetDetail(detailId as string);
 
     // staticly added a starship image because there was none in api
     const defaultImageUrl = Constants.DefaultImage;
     result.data.imageUrl = defaultImageUrl;
 
+    // getting i18n data before client side
     const i18nProps = await serverSideTranslations(context.locale ?? "tr", [
       "common",
     ]);
