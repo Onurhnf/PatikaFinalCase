@@ -1,7 +1,6 @@
 import { appWithTranslation } from "next-i18next";
 import { useTranslation } from "next-i18next";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import Helpers from "@/utility/Helpers";
 import theme from "@/utility/CustomTheme";
 import type { AppProps } from "next/app";
@@ -36,6 +35,17 @@ function App({ Component, pageProps }: AppProps) {
   const handleLogoClick = () => {
     router.push("/", undefined, { locale: router.locale });
   };
+
+  Router.events.on("routeChangeStart", () => {
+    document && document.body.classList.add("loading-indicator");
+    document.documentElement.style.setProperty(
+      "--loading-text",
+      `'${t("Loading-Text")}'`
+    );
+  });
+  Router.events.on("routeChangeComplete", () => {
+    document && document.body.classList.remove("loading-indicator");
+  });
 
   return (
     <>

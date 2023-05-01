@@ -14,5 +14,6 @@
   "Crew": "Crew",
   "Cargo-Capacity": "Cargo Capacity",
   "Go-Back": "Go Back",
-  "NON_DATA": "Looks like the Force is not with us today, no starships in sight! Keep checking back, we'll have them soon"
+  "NON_DATA": "Looks like the Force is not with us today, no starships in sight! Keep checking back, we'll have them soon",
+  "Loading-Text": "Loading..."
 }

@@ -108,3 +108,26 @@ a {
 body {
   background: linear-gradient(to left, #1d2035, #4e3940);
 }
+.loading-indicator:before {
+  content: "";
+  background: #00000050;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+}
+
+.loading-indicator:after {
+  content: var(--loading-text);
+  position: fixed;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  z-index: 9999;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
