@@ -2,6 +2,8 @@
 
 - https://listing-starwars-ships.vercel.app/
 
+- Thanks to https://swapi.dev for api's
+
 ## Installation and Usage
 
 To use this project, you need to do the following steps:
@@ -18,7 +20,3 @@ To use this project, you need to do the following steps:
 - For e2e testing type **npm run cypress** or **yarn cypress** and in another terminal you should run the porject in developer mode
 
 - For jest testing type **npm run test** or **yarn test**
-
-# Patika Cases
-
-- www.patika.dev
